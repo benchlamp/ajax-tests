@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ajax testing</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		
+
+	    $( '#contact' ).submit( function(e){
+	        //console.log( 'hello' );
+	        e.preventDefault();
+	        var formData = $( this ).serialize();
+			//console.log( formData );
+
+			$.ajax({
+			     type: 'POST',
+			     url: 'http://www.benchlamp.co.uk/ajaxResponse.php',
+			     data: formData,
+			     datatype: "json",
+			     success: function(resp){
+			         if (resp) {
+			         		resp = JSON.parse(resp);
+			         		console.log(resp);
+			         		$(".response").html("Their name is " + resp.name);
+
+
+			         } else {
+			         	$(".response").html("Something fucked up!")
+			         }
+		     }
+});
+
+
+	    })
+
+	});
+
+</script>
+
+<style type="text/css"></style>
+
+
+</head>
+<body>
+
+
+<form id="contact" action="#">
+    <input name="name"/>
+    <input name="email_address"/>
+    <textarea name="message"/></textarea>
+    <button id="submit"/>Submit</button>
+</form>
+
+<div class="response"></div>
+
+
+
+
+	</body>
+	</html>
